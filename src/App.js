@@ -13,12 +13,12 @@ const app = (props) => {
 
   const [otherState, setOtherState] = useState('some other state');
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (changedName) => {
     // console.log("Clicked!");
     //DONT DO THIS: this.state.persons[0].name = "Author";
     setPersonState({
       persons: [
-        {name: "A", age: "22"},
+        {name: changedName, age: "22"},
         {name: "B", age: "25"},
         {name: "C", age: "32"}
       ]
@@ -28,9 +28,12 @@ const app = (props) => {
   return (
     <div className="App">
       <h1>Hi, I am react app</h1>
-      <button onClick={switchNameHandler}>Switch Name</button>
+      <button onClick={() => switchNameHandler('Hello')}>Switch Name</button> 
+      {/* recommand using bind() */}
       <Person name={personState.persons[0].name} age={personState.persons[0].age}></Person>
-      <Person name={personState.persons[1].name} age={personState.persons[1].age}>Hello world!</Person>
+      <Person name={personState.persons[1].name} 
+        age={personState.persons[1].age}
+        click={switchNameHandler.bind(this, 'Max!')}>Hello world!</Person>
       <Person name={personState.persons[2].name} age={personState.persons[2].age}></Person>
     </div>
   );
