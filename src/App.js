@@ -24,11 +24,18 @@ const app = (props) => {
       ]
     })
   }
+  const style = {
+    backgroundColor: 'white',
+    font: 'inherit',
+    border: '1px solid blue',
+    padding: '8px',
+    cursor: 'pointer'
+  }
 
   return (
     <div className="App">
       <h1>Hi, I am react app</h1>
-      <button onClick={() => switchNameHandler('Hello')}>Switch Name</button> 
+      <button style={style} onClick={() => switchNameHandler('Hello')}>Switch Name</button> 
       {/* recommand using bind() */}
       <Person name={personState.persons[0].name} age={personState.persons[0].age}></Person>
       <Person name={personState.persons[1].name} 
