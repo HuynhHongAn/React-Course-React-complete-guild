@@ -9,7 +9,11 @@ const app = (props) => {
       {name: "Bob", age: "25"},
       {name: "Charlos", age: "32"}
     ]
+   
   });
+  const [showState, setShowState] = useState({
+    showPersons: false
+  })
 
   const [otherState, setOtherState] = useState('some other state');
 
@@ -32,16 +36,27 @@ const app = (props) => {
     cursor: 'pointer'
   }
 
+  const togglePersonHandler =  () => {
+    const doesShow = showState.showPersons;
+    setShowState({showPersons: !doesShow});
+  }
+
   return (
     <div className="App">
       <h1>Hi, I am react app</h1>
-      <button style={style} onClick={() => switchNameHandler('Hello')}>Switch Name</button> 
-      {/* recommand using bind() */}
-      <Person name={personState.persons[0].name} age={personState.persons[0].age}></Person>
-      <Person name={personState.persons[1].name} 
-        age={personState.persons[1].age}
-        click={switchNameHandler.bind(this, 'Max!')}>Hello world!</Person>
-      <Person name={personState.persons[2].name} age={personState.persons[2].age}></Person>
+      <button style={style} onClick={togglePersonHandler}>Switch Name</button> 
+      {
+        showState.showPersons === true? 
+        <div>
+          <Person name={personState.persons[0].name} age={personState.persons[0].age}></Person>
+          <Person name={personState.persons[1].name} 
+            age={personState.persons[1].age}
+            click={switchNameHandler.bind(this, 'Max!')}>Hello world!</Person>
+          <Person name={personState.persons[2].name} age={personState.persons[2].age}></Person> 
+        </div>
+        : null
+      }
+      
     </div>
   );
     //return React.createElement('div', {className: "App"}, React.createElement('h1', null, 'Hi I\'m Andrew'));
