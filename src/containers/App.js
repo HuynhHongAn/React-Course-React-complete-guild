@@ -13,13 +13,14 @@ class App extends Component {
   }
   state = ({
     persons: [
-      {id: "asd", name: "Andrew", age: "22"},
-      {id: "asd1", name: "Bob", age: "25"},
-      {id: "asd2", name: "Charlos", age: "32"}
+      {id: "asd", name: "Andrew", age: 22},
+      {id: "asd1", name: "Bob", age: 25},
+      {id: "asd2", name: "Charlos", age: 32}
     ],
     someOtherState: 'some other state',
     showPersons: false,
-    showCockpit: true
+    showCockpit: true,
+    changeCounter: 0
    
   });
   
@@ -58,9 +59,13 @@ class App extends Component {
     let persons = [...this.state.persons];
 
     persons[personIndex] = person;
-    this.setState({
-      persons: persons
-    })
+    this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
+    });
+    
   }
 
   deletePersonHandler = (personIndex) => {
