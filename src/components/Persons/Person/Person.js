@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classes from './Person.css';
 import Aux from '../../../hoc/Aux';
 import withClass from '../../../hoc/withClass';
+import AuthContext from '../../../context/auth-context';
 
 class Person extends Component {
     constructor(props) {
@@ -10,9 +11,13 @@ class Person extends Component {
         this.inputElementRef = React.createRef();
     }
 
+    static contextType = AuthContext;
+
     componentDidMount(){
         // this.inputElement.focus();
         this.inputElementRef.current.focus();
+        console.log(this.context.authenticated); //This prop "authenticated" based on 
+                                                    //the prop name in AuthContext.Provider
     }
     render() {
         console.log('[Person.js] is rendering...')
@@ -20,6 +25,7 @@ class Person extends Component {
             
             // <div className={classes.person}>
             <Aux>
+                {this.context.authenticated? <p>Authenticated!</p> : <p>Please login again</p>}
                 <input
                     type="text" 
                     // ref = {(inputEl) => {this.inputElement = inputEl}}
@@ -31,6 +37,7 @@ class Person extends Component {
                     I'm a {this.props.name}! I am {this.props.age} years old.
                 </p>
                 <p>{this.props.children}</p>
+                
             </Aux>
             // </div>
             
